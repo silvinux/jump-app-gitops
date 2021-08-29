@@ -1,0 +1,74 @@
+##
+# Jump App CICD Chart values
+##
+
+# Functional test repo
+functTestRepo: https://github.com/acidonper/jump-app-functional-tests.git
+functTestRepoBranch: master
+functTestMicro: front-javascript
+
+# Type of pipelines
+pipeTypes:
+  - nodejs
+  - golang
+  - python
+  - java
+
+# Production Branch
+gitBranchPro: master
+gitBranchDev: develop
+
+# Namespaces config 
+namespaceDev: jump-app-dev
+namespacePre: jump-app-pre
+namespacePro: jump-app-pro
+namespaceGitOps: openshift-gitops
+
+# Tekton service account to trigger builds
+sa: tekton-deployments-admin
+
+# Global variables
+global:
+
+  # Public domain where apps will be published
+  appsDomain: apps.caixatest.bcb3.sandbox1873.opentlc.com
+
+  # Jump microservices settings
+  apps:
+    front-javascript:
+      build: is
+      imagestream: nodejs:latest
+      imagestreamNamespace: openshift
+      versions:
+        - v1
+      gitRepo: https://github.com/acidonper/jump-app-typescrypt-react.git
+      type: nodejs
+    back-golang:
+      build: dockerfile
+      versions:
+        - v1
+      gitRepo: https://github.com/acidonper/jump-app-golang.git
+      type: golang
+    back-python:
+      build: is
+      imagestream: python:latest
+      imagestreamNamespace: openshift
+      versions:
+        - v1
+      gitRepo: https://github.com/acidonper/jump-app-python.git
+      type: python
+    back-springboot:
+      build: is
+      imagestream: java:latest
+      imagestreamNamespace: openshift
+      versions:
+        - v1
+      gitRepo: https://github.com/acidonper/jump-app-java-springboot.git
+      type: java
+    # back-quarkus:
+    #   build: is
+    #   imagestream: quarkus:20.2.0-java11
+    #   versions:
+    #     - v1
+    #   gitRepo: https://github.com/acidonper/jump-app-quarkus.git
+    #   type: java
